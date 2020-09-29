@@ -3,6 +3,7 @@ _In this task Django restframework and Mongodb are used_
 
 1. __*clone the project and go to the project directory*__
 1. __*create and activate your virtualenv & run pip install -r req.txt*__
+1. __*create mongo db with name "coffee" (or change name to what ever you want BUT also in settings.py)*__
 1. __*run python manage.py migrate*__
 1. __*Ready to go*__
 
