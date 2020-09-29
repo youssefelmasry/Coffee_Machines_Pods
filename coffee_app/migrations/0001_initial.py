@@ -2,6 +2,53 @@
 
 from django.db import migrations, models
 
+def migrate_data(apps, schema_editor):
+    CoffeeMachines = apps.get_model("coffee_app", "CoffeeMachines")
+    CoffeePods = apps.get_model("coffee_app", "CoffeePods")
+
+    coffee_machine_objects = [
+        CoffeeMachines(**{"code":"CM001","product_type":"COFFEE_MACHINE_SMALL","model_type":"base model",}),
+        CoffeeMachines(**{"code":"CM002","product_type":"COFFEE_MACHINE_SMALL","model_type":"premium model",}),
+        CoffeeMachines(**{"code":"CM003","product_type":"COFFEE_MACHINE_SMALL","model_type":"deluxe model","water_line_compatible":True}),
+        CoffeeMachines(**{"code":"CM101","product_type":"COFFEE_MACHINE_LARGE","model_type":"base model",}),
+        CoffeeMachines(**{"code":"CM102","product_type":"COFFEE_MACHINE_LARGE","model_type":"premium model","water_line_compatible":True}),
+        CoffeeMachines(**{"code":"CM103","product_type":"COFFEE_MACHINE_LARGE","model_type":"deluxe model","water_line_compatible":True}),
+        CoffeeMachines(**{"code":"EM001","product_type":"ESPRESSO_MACHINE","model_type":"base model",}),
+        CoffeeMachines(**{"code":"EM002","product_type":"ESPRESSO_MACHINE","model_type":"premium model",}),
+        CoffeeMachines(**{"code":"EM003","product_type":"ESPRESSO_MACHINE","model_type":"deluxe model","water_line_compatible":True})
+    ]
+
+    coffee_pods_objects = [
+        CoffeePods(**{"code":"CP001","product_type":"COFFEE_POD_SMALL","pack_size":"1 dozen","coffee_flavor":"COFFEE_FLAVOR_VANILLA",}),
+        CoffeePods(**{"code":"CP003","product_type":"COFFEE_POD_SMALL","pack_size":"3 dozen","coffee_flavor":"COFFEE_FLAVOR_VANILLA",}),
+        CoffeePods(**{"code":"CP011","product_type":"COFFEE_POD_SMALL","pack_size":"1 dozen","coffee_flavor":"COFFEE_FLAVOR_CARAMEL",}),
+        CoffeePods(**{"code":"CP013","product_type":"COFFEE_POD_SMALL","pack_size":"3 dozen","coffee_flavor":"COFFEE_FLAVOR_CARAMEL",}),
+        CoffeePods(**{"code":"CP021","product_type":"COFFEE_POD_SMALL","pack_size":"1 dozen","coffee_flavor":"COFFEE_FLAVOR_PSL",}),
+        CoffeePods(**{"code":"CP023","product_type":"COFFEE_POD_SMALL","pack_size":"3 dozen","coffee_flavor":"COFFEE_FLAVOR_PSL",}),
+        CoffeePods(**{"code":"CP031","product_type":"COFFEE_POD_SMALL","pack_size":"1 dozen","coffee_flavor":"COFFEE_FLAVOR_MOCHA",}),
+        CoffeePods(**{"code":"CP033","product_type":"COFFEE_POD_SMALL","pack_size":"3 dozen","coffee_flavor":"COFFEE_FLAVOR_MOCHA",}),
+        CoffeePods(**{"code":"CP041","product_type":"COFFEE_POD_SMALL","pack_size":"1 dozen","coffee_flavor":"COFFEE_FLAVOR_HAZELNUT",}),
+        CoffeePods(**{"code":"CP043","product_type":"COFFEE_POD_SMALL","pack_size":"3 dozen","coffee_flavor":"COFFEE_FLAVOR_HAZELNUT",}),
+        CoffeePods(**{"code":"CP101","product_type":"COFFEE_POD_LARGE","pack_size":"1 dozen","coffee_flavor":"COFFEE_FLAVOR_VANILLA",}),
+        CoffeePods(**{"code":"CP103","product_type":"COFFEE_POD_LARGE","pack_size":"3 dozen","coffee_flavor":"COFFEE_FLAVOR_VANILLA",}),
+        CoffeePods(**{"code":"CP111","product_type":"COFFEE_POD_LARGE","pack_size":"1 dozen","coffee_flavor":"COFFEE_FLAVOR_CARAMEL",}),
+        CoffeePods(**{"code":"CP113","product_type":"COFFEE_POD_LARGE","pack_size":"3 dozen","coffee_flavor":"COFFEE_FLAVOR_CARAMEL",}),
+        CoffeePods(**{"code":"CP121","product_type":"COFFEE_POD_LARGE","pack_size":"1 dozen","coffee_flavor":"COFFEE_FLAVOR_PSL",}),
+        CoffeePods(**{"code":"CP123","product_type":"COFFEE_POD_LARGE","pack_size":"3 dozen","coffee_flavor":"COFFEE_FLAVOR_PSL",}),
+        CoffeePods(**{"code":"CP131","product_type":"COFFEE_POD_LARGE","pack_size":"1 dozen","coffee_flavor":"COFFEE_FLAVOR_MOCHA",}),
+        CoffeePods(**{"code":"CP133","product_type":"COFFEE_POD_LARGE","pack_size":"3 dozen","coffee_flavor":"COFFEE_FLAVOR_MOCHA",}),
+        CoffeePods(**{"code":"CP141","product_type":"COFFEE_POD_LARGE","pack_size":"1 dozen","coffee_flavor":"COFFEE_FLAVOR_HAZELNUT",}),
+        CoffeePods(**{"code":"CP143","product_type":"COFFEE_POD_LARGE","pack_size":"3 dozen","coffee_flavor":"COFFEE_FLAVOR_HAZELNUT",}),
+        CoffeePods(**{"code":"EP003","product_type":"ESPRESSO_POD","pack_size":"3 dozen","coffee_flavor":"COFFEE_FLAVOR_VANILLA",}),
+        CoffeePods(**{"code":"EP005","product_type":"ESPRESSO_POD","pack_size":"5 dozen","coffee_flavor":"COFFEE_FLAVOR_VANILLA",}),
+        CoffeePods(**{"code":"EP007","product_type":"ESPRESSO_POD","pack_size":"7 dozen","coffee_flavor":"COFFEE_FLAVOR_VANILLA",}),
+        CoffeePods(**{"code":"EP013","product_type":"ESPRESSO_POD","pack_size":"3 dozen","coffee_flavor":"COFFEE_FLAVOR_CARAMEL",}),
+        CoffeePods(**{"code":"EP015","product_type":"ESPRESSO_POD","pack_size":"5 dozen","coffee_flavor":"COFFEE_FLAVOR_CARAMEL",}),
+        CoffeePods(**{"code":"EP017","product_type":"ESPRESSO_POD","pack_size":"7 dozen","coffee_flavor":"COFFEE_FLAVOR_CARAMEL",})
+    ]
+
+    CoffeeMachines.objects.bulk_create(coffee_machine_objects)
+    CoffeePods.objects.bulk_create(coffee_pods_objects)
 
 class Migration(migrations.Migration):
 
@@ -35,4 +82,5 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
         ),
+        migrations.RunPython(migrate_data),
     ]

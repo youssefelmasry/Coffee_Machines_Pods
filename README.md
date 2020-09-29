@@ -1,6 +1,11 @@
 ### Getting Started
 _In this task Django restframework and Mongodb are used_
 
+1. __*clone the project and go to the project directory*__
+1. __*create and activate your virtualenv & run pip install -r req.txt*__
+1. __*run python manage.py migrate*__
+1. __*Ready to go*__
+
 There are 2 endpoints:
 1. ```/coffee/pods/?query_params``` GET
   * You Can Filter With query_params:
